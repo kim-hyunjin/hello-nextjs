@@ -1,32 +1,32 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import styles from "../styles/NavBar.module.css"; // css module
 
 export default function NavBar() {
-    const router = useRouter(); // 현재 url 정보를 얻을 수 잇는 hook
+    const router = useRouter();
 
     return (
         <>
-            {/**랜덤한 className을 만들어준다. */}
-            <nav className={styles.nav}>
-                {/**Link컴포넌트를 사용해야 페이지를 다시 불러오지 않고, Single Page Application을 만들 수 있다. */}
+            <nav>
                 <Link href="/">
-                    {/**렌더링 되는 tag는 a 태그이므로 className이나 style 등은 a태그에 적용하면 된다. */}
-                    <a className={`${styles.link} ${router.pathname === "/" ? styles.active : ""}`}>
-                        Home
-                    </a>
+                    <a className={router.pathname === "/" ? "active" : ""}>Home</a>
                 </Link>
                 <Link href="/about">
-                    {/**css module의 className을 여러 개 사용하기 위한 방법2 */}
-                    <a
-                        className={[
-                            styles.link,
-                            router.pathname === "/about" ? styles.active : "",
-                        ].join(" ")}
-                    >
-                        About
-                    </a>
+                    <a className={router.pathname === "/about" ? "active" : ""}>About</a>
                 </Link>
+                {/** styled tsx에 선언한 스타일들은 범위가 이 컴포넌트에 한정된다.
+                 * className을 따로 정의할 필요없이 html 태그에 스타일을 적용할 수 있다.
+                 */}
+                <style jsx>{`
+                    nav {
+                        background-color: tomato;
+                    }
+                    a {
+                        text-decoration: none;
+                    }
+                    .active {
+                        color: yellow;
+                    }
+                `}</style>
             </nav>
         </>
     );
