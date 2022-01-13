@@ -1,10 +1,11 @@
 import NavBar from "../components/NavBar";
 
-export default function Home() {
+// export default는 필수. 파일명이 url이 된다.
+export default function About() {
     return (
         <div>
             <NavBar />
-            <h1>Home</h1>
+            <h1>About</h1>
         </div>
     );
 }
