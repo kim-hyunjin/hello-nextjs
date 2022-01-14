@@ -62,7 +62,7 @@ export default function Home({ movies }: { movies: Movie[] }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const res = await fetch("http://localhost:3000/api/movies");
+    const res = await fetch("https://hello-nextjs-ten.vercel.app/api/movies");
     const data = await res.json();
     return {
         props: {
