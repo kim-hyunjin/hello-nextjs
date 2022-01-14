@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { GetServerSideProps } from "next";
 import SEO from "../components/SEO";
 
 type Movie = {
@@ -7,15 +7,7 @@ type Movie = {
     poster_path: string;
 };
 
-export default function Home() {
-    const [movies, setMovies] = useState<Movie[]>([]);
-    useEffect(() => {
-        (async () => {
-            const res = await fetch("/api/movies");
-            const data = await res.json();
-            setMovies(data.results);
-        })();
-    }, []);
+export default function Home({ movies }: { movies: Movie[] }) {
     return (
         <div className="container">
             <SEO title="Home"></SEO>
@@ -52,3 +44,13 @@ export default function Home() {
         </div>
     );
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+    const res = await fetch("http://localhost:3000/api/movies");
+    const data = await res.json();
+    return {
+        props: {
+            movies: data.results,
+        },
+    };
+};
