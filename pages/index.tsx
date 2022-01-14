@@ -1,4 +1,5 @@
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 import SEO from "../components/SEO";
 
 type Movie = {
@@ -13,10 +14,23 @@ export default function Home({ movies }: { movies: Movie[] }) {
             <SEO title="Home"></SEO>
             {movies.map((movie) => {
                 return (
-                    <div className="movie" key={movie.id}>
-                        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
-                        <h4>{movie.original_title}</h4>
-                    </div>
+                    <Link
+                        href={{
+                            pathname: `/movies/${movie.id}`,
+                            query: {
+                                title: movie.original_title,
+                            },
+                        }}
+                        as={`/movies/${movie.id}`}
+                        key={movie.id}
+                    >
+                        <a>
+                            <div className="movie">
+                                <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} />
+                                <h4>{movie.original_title}</h4>
+                            </div>
+                        </a>
+                    </Link>
                 );
             })}
             <style jsx>{`
