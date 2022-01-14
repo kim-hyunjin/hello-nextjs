@@ -61,8 +61,9 @@ export default function Home({ movies }: { movies: Movie[] }) {
     );
 }
 
+const vercelUrl = process.env.VERCEL_URL;
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const res = await fetch("https://hello-nextjs-ten.vercel.app/api/movies");
+    const res = await fetch(`https://${vercelUrl}/api/movies`);
     const data = await res.json();
     return {
         props: {
