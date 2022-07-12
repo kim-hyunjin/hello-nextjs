@@ -1,4 +1,4 @@
-## create beautiful mesh gradient
+## Create beautiful mesh gradient
 
 https://meshgradient.com/
 
