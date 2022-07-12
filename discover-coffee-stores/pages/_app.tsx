@@ -6,9 +6,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Component {...pageProps} />
-      <footer>
+      {/* <footer>
         <p>© 2022 kim-hyunjin</p>
-      </footer>
+      </footer> */}
     </>
   );
 }
