@@ -23,3 +23,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties
 https://nextjs.org/docs/api-reference/next/head
 
 https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML
+
+## Link
+
+https://nextjs.org/docs/api-reference/next/link
