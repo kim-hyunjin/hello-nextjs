@@ -1,8 +1,8 @@
 import Plot from 'react-plotly.js';
-import { GraphChartProps } from '.';
+import { BarChartProps } from '.';
 
-const BarChart = ({ title, width = 320, height = 240, x, y }: GraphChartProps) => {
-  return <Plot data={[{ type: 'bar', x, y }]} layout={{ width, height, title }} />;
+const BarChart = (props: BarChartProps) => {
+  return <Plot data={props.data} layout={props.layout} />;
 };
 
 export default BarChart;

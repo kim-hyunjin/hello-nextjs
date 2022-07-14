@@ -1,9 +1,7 @@
 import type { NextPage } from 'next';
-import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import { BarChart, LineChart } from './components/Chart';
+import { BarChart, LineChart, PieChart } from './components/Chart';
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -14,10 +12,34 @@ const Home: NextPage = () => {
       </Head>
       <ul>
         <li>
-          <BarChart title={'Bar'} x={[1, 2, 3]} y={[2, 5, 3]} />
+          <BarChart
+            layout={{ title: 'Bar' }}
+            data={[{ x: [1, 2, 3], y: [2, 5, 3], type: 'bar' }]}
+          />
         </li>
         <li>
-          <LineChart title={'Line'} x={[1, 2, 3]} y={[2, 5, 3]} />
+          <LineChart layout={{ title: 'Line' }} data={[{ x: [1, 2, 3], y: [2, 5, 3] }]} />
+        </li>
+        <li>
+          <PieChart
+            layout={{ title: 'Pie', grid: { rows: 1, columns: 2 } }}
+            data={[
+              {
+                type: 'pie',
+                labels: ['a', 'b', 'c', 'd'],
+                values: [2, 3, 4, 4],
+                textinfo: 'label+percent',
+                domain: { column: 0 },
+              },
+              {
+                type: 'pie',
+                labels: ['a', 'b', 'c', 'd'],
+                values: [9, 4, 3, 1],
+                textinfo: 'label+percent',
+                domain: { column: 1 },
+              },
+            ]}
+          />
         </li>
       </ul>
     </div>

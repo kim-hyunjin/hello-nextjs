@@ -1,8 +1,8 @@
 import Plot from 'react-plotly.js';
-import { GraphChartProps } from '.';
+import { LineChartProps } from '.';
 
-const LineChart = ({ title, x, y, width = 320, height = 240 }: GraphChartProps) => {
-  return <Plot data={[{ type: 'scatter', x, y }]} layout={{ title, width, height }} />;
+const LineChart = (props: LineChartProps) => {
+  return <Plot data={props.data} layout={props.layout} />;
 };
 
 export default LineChart;
