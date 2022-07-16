@@ -1,7 +1,13 @@
+# Useful resource
+
 ## Create beautiful mesh gradient
 
-https://meshgradient.com/
+[meshgradient.com](https://meshgradient.com/)
 
 ## Create Icon, Image
 
-https://icons8.com/
+[icons8](https://icons8.com/)
+
+## Glassmorphism
+
+[glassmorphism-generator](https://hype4.academy/tools/glassmorphism-generator)
