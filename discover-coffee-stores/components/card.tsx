@@ -9,12 +9,13 @@ interface Props {
   name: string;
   imgUrl: string;
   href: string;
+  className: string;
 }
 
 const Card = (props: Props) => {
   return (
     <Link href={props.href}>
-      <a className={styles.cardLink}>
+      <a className={cls(styles.cardLink, props.className)}>
         <div className={cls(styles.container, 'glass')}>
           <div className={styles.cardHeaderWrapper}>
             <h2 className={styles.cardHeader}>{props.name}</h2>
