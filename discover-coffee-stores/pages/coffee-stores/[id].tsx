@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import Head from 'next/head';
 import { useRouter } from 'next/router';
+import { GetStaticPaths, GetStaticProps } from 'next';
 
 import coffeeStoresData from '@/data/coffee-stores.json';
-import { GetStaticPaths, GetStaticProps } from 'next';
 import { CoffeeStore } from '@/types/coffee-store';
 
 /**
@@ -12,8 +13,14 @@ import { CoffeeStore } from '@/types/coffee-store';
  * true인 경우, 404페이지가 아닌 fallback version의 페이지를 렌더링하고, 그 동안 getStaticProps를 통해 현재 경로에 해당하는 HTML을 만들어 렌더링합니다. (이후로는 만들어놓은 HTML을 그대로 serve)
  */
 export const getStaticPaths: GetStaticPaths = () => {
+  const paths = coffeeStoresData.map((coffeeStore) => ({
+    params: {
+      id: coffeeStore.id.toString(),
+    },
+  }));
+
   return {
-    paths: [{ params: { id: '0' } }, { params: { id: '1' } }],
+    paths,
     fallback: true,
   };
 };
@@ -39,12 +46,17 @@ const CoffeeStoreDetail = (props: Props) => {
     return <div>Loading...</div>;
   }
 
+  const { address, name, neighbourhood } = props.coffeeStore;
+
   return (
     <div>
-      {router.query.id}
+      <Head>
+        <title>{name}</title>
+      </Head>
       <Link href="/">Back to home</Link>
-      <p>{props.coffeeStore.address}</p>
-      <p>{props.coffeeStore.name}</p>
+      <p>{address}</p>
+      <p>{name}</p>
+      <p>{neighbourhood}</p>
     </div>
   );
 };
