@@ -6,10 +6,10 @@ import Image from 'next/image';
 
 import cls from 'classnames';
 
-import coffeeStoresData from '@/data/coffee-stores.json';
 import { CoffeeStore } from '@/types/coffee-store';
 
 import styles from '@/styles/coffee-store.module.css';
+import { fetchCoffeeStores } from 'lib/coffee-store';
 
 /**
  * https://nextjs.org/docs/api-reference/data-fetching/get-static-paths
@@ -17,8 +17,9 @@ import styles from '@/styles/coffee-store.module.css';
  * fallback값이 false인 경우, route가 getStaticPaths에 존재하지 않는다면 build time에 만들어둔 HTML이 없기 때문에 404페이지로 갑니다.
  * true인 경우, 404페이지가 아닌 fallback version의 페이지를 렌더링하고, 그 동안 getStaticProps를 통해 현재 경로에 해당하는 HTML을 만들어 렌더링합니다. (이후로는 만들어놓은 HTML을 그대로 serve)
  */
-export const getStaticPaths: GetStaticPaths = () => {
-  const paths = coffeeStoresData.map((coffeeStore) => ({
+export const getStaticPaths: GetStaticPaths = async () => {
+  const coffeeStores = await fetchCoffeeStores();
+  const paths = coffeeStores.map((coffeeStore) => ({
     params: {
       id: coffeeStore.id.toString(),
     },
@@ -30,12 +31,12 @@ export const getStaticPaths: GetStaticPaths = () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
+  const coffeeStores = await fetchCoffeeStores();
   const params = context.params;
-
   return {
     props: {
-      coffeeStore: coffeeStoresData.find((coffeeStore) => coffeeStore.id.toString() === params.id),
+      coffeeStore: coffeeStores.find((coffeeStore) => coffeeStore.id.toString() === params.id),
     },
   };
 };
