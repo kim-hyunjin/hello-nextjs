@@ -2,7 +2,7 @@ import styles from './Banner.module.css';
 
 interface Props {
   buttonText: string;
-  handleOnClick: () => void;
+  onClick: () => void;
 }
 
 const Banner = (props: Props) => {
@@ -14,7 +14,7 @@ const Banner = (props: Props) => {
       </h1>
       <p className={styles.subTitle}>Discover your local coffee shop!</p>
       <div className={styles.buttonWrapper}>
-        <button className={styles.button} onClick={props.handleOnClick}>
+        <button className={styles.button} onClick={props.onClick}>
           {props.buttonText}
         </button>
       </div>

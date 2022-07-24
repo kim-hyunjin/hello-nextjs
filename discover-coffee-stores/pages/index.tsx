@@ -1,14 +1,16 @@
+import { useCallback } from 'react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { GetStaticPropsContext } from 'next';
 
 import Card from '@/components/card';
 import Banner from '@/components/banner';
 
 import { CoffeeStore } from '@/types/coffee-store';
+import { fetchCoffeeStores } from '@/lib/coffee-store';
+import { useTrackLocation } from '@/hooks/useTrackLocation';
 
-import styles from '../styles/Home.module.css';
-import { GetStaticPropsContext } from 'next';
-import { fetchCoffeeStores } from 'lib/coffee-store';
+import styles from '@/styles/Home.module.css';
 
 interface Props {
   coffeeStores: CoffeeStore[];
@@ -25,23 +27,38 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 }
 
 export default function Home(props: Props) {
-  const handleOnBannerBtnClick = () => {};
+  const {
+    isLoading: isFindingLocation,
+    location,
+    locationErrorMsg,
+    handleTrackLocation,
+  } = useTrackLocation();
+
+  const handleOnBannerBtnClick = useCallback(() => {
+    handleTrackLocation();
+  }, [handleTrackLocation]);
+
+  console.log(location, locationErrorMsg);
 
   return (
     <div className={styles.container}>
       <Head>
         <title>Coffee Connoisseur</title>
-        <meta name="description" content="Discover your local coffee shop!" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta name='description' content='Discover your local coffee shop!' />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       <main className={styles.main}>
-        <Banner buttonText="View stores nearby" handleOnClick={handleOnBannerBtnClick} />
+        <Banner
+          buttonText={isFindingLocation ? 'Locating...' : 'View stores nearby'}
+          onClick={handleOnBannerBtnClick}
+        />
+        {locationErrorMsg && <p>{locationErrorMsg}</p>}
         <div className={styles.heroImage}>
           <Image src={'/static/hero-image.png'} width={700} height={400} alt={'hero'} />
         </div>
         {props.coffeeStores.length > 0 && (
-          <>
+          <div className={styles.sectionWrapper}>
             <h2 className={styles.heading2}>Seoul stores</h2>
             <div className={styles.cardLayout}>
               {props.coffeeStores.map((coffeeStore) => (
@@ -54,7 +71,7 @@ export default function Home(props: Props) {
                 />
               ))}
             </div>
-          </>
+          </div>
         )}
       </main>
     </div>
