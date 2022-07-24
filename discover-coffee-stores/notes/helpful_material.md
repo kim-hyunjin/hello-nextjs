@@ -1,33 +1,25 @@
-# Next.js feature
+# Helpful material
 
-## Next.js version 12 with new features
+## Next.js feature
 
-https://nextjs.org/blog/next-12
+### [Next.js version 12 with new features](https://nextjs.org/blog/next-12)
 
-## Edge functions
+### [Edge functions](https://vercel.com/features/edge-functions)
 
-https://vercel.com/features/edge-functions
+### [Head](https://nextjs.org/docs/api-reference/next/head)
 
-## Head
+- [The head metadata in HTML](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML)
 
-https://nextjs.org/docs/api-reference/next/head
+### [Link](https://nextjs.org/docs/api-reference/next/link)
 
-https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/The_head_metadata_in_HTML
+### [Image](https://nextjs.org/docs/api-reference/next/image)
 
-## Link
+---
 
-https://nextjs.org/docs/api-reference/next/link
+## ETC
 
-## Image
+### [Mobile First Design](https://css-tricks.com/how-to-develop-and-test-a-mobile-first-design-in-2021/)
 
-https://nextjs.org/docs/api-reference/next/image
+### [CSS Variable](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties)
 
-# ETC
-
-## Mobile First Design
-
-https://css-tricks.com/how-to-develop-and-test-a-mobile-first-design-in-2021/
-
-## CSS Variable
-
-https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties
+### [Geolocation API](https://developer.mozilla.org/ko/docs/Web/API/Geolocation_API)
