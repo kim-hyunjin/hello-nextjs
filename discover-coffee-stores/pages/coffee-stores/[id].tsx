@@ -1,15 +1,14 @@
-import { GetStaticPaths, GetStaticProps } from 'next';
-import Link from 'next/link';
-import Head from 'next/head';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-
 import cls from 'classnames';
+import { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import { CoffeeStore } from '@/types/coffee-store';
+import { fetchCoffeeStores } from 'lib/coffee-store';
 
 import styles from '@/styles/coffee-store.module.css';
-import { fetchCoffeeStores } from 'lib/coffee-store';
+import { CoffeeStore } from '@/types/coffee-store';
 
 /**
  * https://nextjs.org/docs/api-reference/data-fetching/get-static-paths
@@ -36,7 +35,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const params = context.params;
   return {
     props: {
-      coffeeStore: coffeeStores.find((coffeeStore) => coffeeStore.id.toString() === params.id),
+      coffeeStore: coffeeStores.find(
+        (coffeeStore) => coffeeStore.id.toString() === params.id,
+      ),
     },
   };
 };
@@ -73,20 +74,41 @@ const CoffeeStoreDetail = (props: Props) => {
             <h1 className={styles.name}>{name}</h1>
           </div>
           <div className={styles.storeImgWrapper}>
-            <Image src={imgUrl} width={600} height={360} className={styles.storeImg} alt={name} />
+            <Image
+              src={imgUrl}
+              width={600}
+              height={360}
+              className={styles.storeImg}
+              alt={name}
+            />
           </div>
         </div>
         <div className={cls(styles.col2, 'glass')}>
           <div className={styles.iconWrapper}>
-            <Image src={'/static/icons/places.svg'} width={24} height={24} alt={'place icon'} />
+            <Image
+              src={'/static/icons/places.svg'}
+              width={24}
+              height={24}
+              alt={'place icon'}
+            />
             <p className={styles.text}>{address}</p>
           </div>
           <div className={styles.iconWrapper}>
-            <Image src={'/static/icons/nearMe.svg'} width={24} height={24} alt={'near me icon'} />
+            <Image
+              src={'/static/icons/nearMe.svg'}
+              width={24}
+              height={24}
+              alt={'near me icon'}
+            />
             <p className={styles.text}>{neighbourhood}</p>
           </div>
           <div className={styles.iconWrapper}>
-            <Image src={'/static/icons/star.svg'} width={24} height={24} alt={'star icon'} />
+            <Image
+              src={'/static/icons/star.svg'}
+              width={24}
+              height={24}
+              alt={'star icon'}
+            />
             <p className={styles.text}>{1}</p>
           </div>
           <button className={styles.upvoteButton} onClick={handleUpVoteButton}>

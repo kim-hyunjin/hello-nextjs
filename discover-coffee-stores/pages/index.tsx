@@ -1,14 +1,17 @@
 import { useCallback } from 'react';
+
+import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { GetStaticPropsContext } from 'next';
 
-import Card from '@/components/card';
 import Banner from '@/components/banner';
+import Card from '@/components/card';
+
+import { useTrackLocation } from '@/hooks/useTrackLocation';
+
+import { fetchCoffeeStores } from '@/lib/coffee-store';
 
 import { CoffeeStore } from '@/types/coffee-store';
-import { fetchCoffeeStores } from '@/lib/coffee-store';
-import { useTrackLocation } from '@/hooks/useTrackLocation';
 
 import styles from '@/styles/Home.module.css';
 
@@ -44,8 +47,8 @@ export default function Home(props: Props) {
     <div className={styles.container}>
       <Head>
         <title>Coffee Connoisseur</title>
-        <meta name='description' content='Discover your local coffee shop!' />
-        <link rel='icon' href='/favicon.ico' />
+        <meta name="description" content="Discover your local coffee shop!" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
@@ -55,7 +58,12 @@ export default function Home(props: Props) {
         />
         {locationErrorMsg && <p>{locationErrorMsg}</p>}
         <div className={styles.heroImage}>
-          <Image src={'/static/hero-image.png'} width={700} height={400} alt={'hero'} />
+          <Image
+            src={'/static/hero-image.png'}
+            width={700}
+            height={400}
+            alt={'hero'}
+          />
         </div>
         {props.coffeeStores.length > 0 && (
           <div className={styles.sectionWrapper}>

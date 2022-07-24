@@ -1,5 +1,6 @@
-import { CoffeeStore } from '@/types/coffee-store';
 import { createApi } from 'unsplash-js';
+
+import { CoffeeStore } from '@/types/coffee-store';
 
 const unsplash = createApi({
   accessKey: process.env.UNSPLASH_ACCESS_KEY,
@@ -15,7 +16,12 @@ const getCoffeeStorePhotos = async () => {
   return unsplashResult.response?.results.map((result) => result.urls['small']);
 };
 
-const getUrlForCoffeeStores = (query: string, lat: number, lng: number, limit: number): string => {
+const getUrlForCoffeeStores = (
+  query: string,
+  lat: number,
+  lng: number,
+  limit: number,
+): string => {
   return `https://api.foursquare.com/v3/places/search?query=${query}&ll=${lat},${lng}&limit=${limit}`;
 };
 
