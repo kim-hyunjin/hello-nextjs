@@ -12,7 +12,7 @@ const getCoffeeStorePhotos = async () => {
     perPage: 30,
   });
 
-  return unsplashResult.response.results.map((result) => result.urls['small']);
+  return unsplashResult.response?.results.map((result) => result.urls['small']);
 };
 
 const getUrlForCoffeeStores = (query: string, lat: number, lng: number, limit: number): string => {
