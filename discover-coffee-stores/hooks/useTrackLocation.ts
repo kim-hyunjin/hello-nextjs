@@ -1,7 +1,8 @@
 import { useCallback, useState } from 'react';
+import { Coordinates } from '../types';
 
 export const useTrackLocation = () => {
-  const [location, setLocation] = useState<{ lat: number; lng: number }>();
+  const [location, setLocation] = useState<Coordinates>();
   const [isLoading, setIsLoading] = useState(false);
   const [locationErrorMsg, setLocationErrorMsg] = useState('');
 

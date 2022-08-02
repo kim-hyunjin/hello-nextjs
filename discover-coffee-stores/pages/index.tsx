@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -14,6 +14,7 @@ import { fetchCoffeeStores } from '@/lib/coffee-store';
 import { CoffeeStore } from '@/types/coffee-store';
 
 import styles from '@/styles/Home.module.css';
+import { Coordinates } from '../types';
 
 interface Props {
   coffeeStores: CoffeeStore[];
@@ -42,6 +43,21 @@ export default function Home(props: Props) {
   }, [handleTrackLocation]);
 
   console.log(location, locationErrorMsg);
+
+  async function fetch(location: Coordinates) {
+    try {
+      const fetchedCoffeeStore = await fetchCoffeeStores(location.lat, location.lng, 30)
+      console.log(fetchedCoffeeStore)
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  useEffect(() => {
+    if (location) {
+      fetch(location)
+    }
+  }, [location])
 
   return (
     <div className={styles.container}>

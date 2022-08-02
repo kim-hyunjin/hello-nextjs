@@ -25,7 +25,7 @@ const getUrlForCoffeeStores = (
   return `https://api.foursquare.com/v3/places/search?query=${query}&ll=${lat},${lng}&limit=${limit}`;
 };
 
-export const fetchCoffeeStores = async (): Promise<CoffeeStore[]> => {
+export const fetchCoffeeStores = async (lat:number = 37.5087, lng: number = 127.0632, limit = 6): Promise<CoffeeStore[]> => {
   const photos = await getCoffeeStorePhotos();
   const options = {
     method: 'GET',
@@ -34,7 +34,7 @@ export const fetchCoffeeStores = async (): Promise<CoffeeStore[]> => {
       Authorization: process.env.FOURSQUARE_API_KEY,
     },
   };
-  const url = getUrlForCoffeeStores('커피', 37.5087, 127.0632, 6);
+  const url = getUrlForCoffeeStores('커피', lat, lng, limit);
 
   console.log(options, url);
 
