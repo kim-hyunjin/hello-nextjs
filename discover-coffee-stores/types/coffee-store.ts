@@ -1,5 +1,5 @@
 export interface CoffeeStore {
-  id: number;
+  id: number | string;
   name: string;
   imgUrl: string;
   websiteUrl: string;

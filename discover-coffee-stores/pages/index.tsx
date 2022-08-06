@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 import { GetStaticPropsContext } from 'next';
 import Head from 'next/head';
@@ -13,8 +13,10 @@ import { fetchCoffeeStores } from '@/lib/coffee-store';
 
 import { CoffeeStore } from '@/types/coffee-store';
 
-import styles from '@/styles/Home.module.css';
 import { Coordinates } from '../types';
+
+import { ACTION_TYPES, StoreContext } from '@/context';
+import styles from '@/styles/Home.module.css';
 
 interface Props {
   coffeeStores: CoffeeStore[];
@@ -38,8 +40,8 @@ export default function Home(props: Props) {
     handleTrackLocation,
   } = useTrackLocation();
 
-  const [coffeeStores, setCoffeeStores] = useState<CoffeeStore[]>([]);
-  const [fetchErrorMsg, setFetchErrorMsg] = useState<string | null>(null)
+  const { state, dispatch } = useContext(StoreContext);
+  const [fetchErrorMsg, setFetchErrorMsg] = useState<string | null>(null);
 
   const handleOnBannerBtnClick = useCallback(() => {
     handleTrackLocation();
@@ -47,25 +49,35 @@ export default function Home(props: Props) {
 
   console.log(location, locationErrorMsg);
 
-  async function fetch(location: Coordinates) {
-    try {
-      const fetchedCoffeeStore = await fetchCoffeeStores(location.lat, location.lng, 30)
-      console.log(fetchedCoffeeStore)
-      setCoffeeStores(fetchedCoffeeStore)
-      setFetchErrorMsg(null)
-    } catch (e) {
-      console.error(e);
-      if (e instanceof Error) {
-        setFetchErrorMsg(e.message);
+  const fetchCoffeeStoreNearUser = useCallback(
+    async (location: Coordinates) => {
+      try {
+        const fetchedCoffeeStore = await fetchCoffeeStores(
+          location.lat,
+          location.lng,
+          30,
+        );
+        console.log(fetchedCoffeeStore);
+        dispatch({
+          type: ACTION_TYPES.SET_COFFEE_STORES,
+          payload: fetchedCoffeeStore,
+        });
+        setFetchErrorMsg(null);
+      } catch (e) {
+        console.error(e);
+        if (e instanceof Error) {
+          setFetchErrorMsg(e.message);
+        }
       }
-    }
-  }
+    },
+    [dispatch],
+  );
 
   useEffect(() => {
     if (location) {
-      fetch(location)
+      fetchCoffeeStoreNearUser(location);
     }
-  }, [location])
+  }, [location, fetchCoffeeStoreNearUser]);
 
   return (
     <div className={styles.container}>
@@ -90,11 +102,11 @@ export default function Home(props: Props) {
             alt={'hero'}
           />
         </div>
-        {coffeeStores.length > 0 && (
+        {state.coffeeStores.length > 0 && (
           <div className={styles.sectionWrapper}>
             <h2 className={styles.heading2}>Stores near me</h2>
             <div className={styles.cardLayout}>
-              {coffeeStores.map((coffeeStore) => (
+              {state.coffeeStores.map((coffeeStore) => (
                 <Card
                   key={coffeeStore.id}
                   className={styles.card}

@@ -1,19 +1,26 @@
-import { useCallback, useState } from 'react';
-import { Coordinates } from '../types';
+import { useCallback, useContext, useState } from 'react';
+
+import { ACTION_TYPES, StoreContext } from '@/context';
 
 export const useTrackLocation = () => {
-  const [location, setLocation] = useState<Coordinates>();
+  const { state, dispatch } = useContext(StoreContext);
   const [isLoading, setIsLoading] = useState(false);
   const [locationErrorMsg, setLocationErrorMsg] = useState('');
 
-  const handleSuccess: PositionCallback = useCallback((position) => {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
+  const handleSuccess: PositionCallback = useCallback(
+    (position) => {
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
 
-    setLocation({ lat: latitude, lng: longitude });
-    setIsLoading(false);
-    setLocationErrorMsg('');
-  }, []);
+      dispatch({
+        type: ACTION_TYPES.SET_LOCATION,
+        payload: { lat: latitude, lng: longitude },
+      });
+      setIsLoading(false);
+      setLocationErrorMsg('');
+    },
+    [dispatch],
+  );
 
   const handleError: PositionErrorCallback = useCallback(() => {
     setIsLoading(false);
@@ -31,5 +38,10 @@ export const useTrackLocation = () => {
     }
   }, [handleSuccess, handleError]);
 
-  return { isLoading, location, locationErrorMsg, handleTrackLocation };
+  return {
+    isLoading,
+    location: state.location,
+    locationErrorMsg,
+    handleTrackLocation,
+  };
 };

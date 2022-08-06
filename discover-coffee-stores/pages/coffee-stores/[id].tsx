@@ -1,3 +1,5 @@
+import { useContext, useEffect, useState } from 'react';
+
 import cls from 'classnames';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
@@ -9,6 +11,8 @@ import { fetchCoffeeStores } from 'lib/coffee-store';
 
 import styles from '@/styles/coffee-store.module.css';
 import { CoffeeStore } from '@/types/coffee-store';
+
+import { StoreContext } from '@/context';
 
 /**
  * https://nextjs.org/docs/api-reference/data-fetching/get-static-paths
@@ -33,29 +37,53 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async (context) => {
   const coffeeStores = await fetchCoffeeStores();
   const params = context.params;
+  const foundedById = coffeeStores.find(
+    (coffeeStore) => coffeeStore.id.toString() === params.id,
+  );
   return {
     props: {
-      coffeeStore: coffeeStores.find(
-        (coffeeStore) => coffeeStore.id.toString() === params.id,
-      ),
+      coffeeStore: foundedById ? foundedById : null, // should return can parse to JSON or null
     },
   };
 };
 
 interface Props {
-  coffeeStore: CoffeeStore;
+  coffeeStore: CoffeeStore | null;
 }
 
 const CoffeeStoreDetail = (props: Props) => {
   const router = useRouter();
 
+  const id = router.query.id;
+
+  const [coffeeStore, setCoffeeStore] = useState<CoffeeStore | null>(
+    props.coffeeStore,
+  );
+
+  const {
+    state: { coffeeStores },
+  } = useContext(StoreContext);
+
+  useEffect(() => {
+    if (!props.coffeeStore && coffeeStores.length > 0) {
+      const findCoffeeStoreById = coffeeStores.find(
+        (cs) => String(cs.id) === String(id),
+      );
+      setCoffeeStore(findCoffeeStoreById);
+    }
+  }, [id, coffeeStores, props.coffeeStore]);
+
+  const handleUpVoteButton = () => {};
+
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
 
-  const { address, name, neighbourhood, imgUrl } = props.coffeeStore;
+  if (!coffeeStore) {
+    return <div>not found</div>;
+  }
 
-  const handleUpVoteButton = () => {};
+  const { address, name, neighbourhood, imgUrl } = coffeeStore;
 
   return (
     <div className={styles.layout}>
