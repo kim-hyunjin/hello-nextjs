@@ -22,6 +22,11 @@ interface Props {
   coffeeStores: CoffeeStore[];
 }
 
+/**
+ * fetch coffee stores at build time.
+ * @param context
+ * @returns
+ */
 export async function getStaticProps(context: GetStaticPropsContext) {
   const coffeeStores = await fetchCoffeeStores();
 
@@ -52,12 +57,11 @@ export default function Home(props: Props) {
   const fetchCoffeeStoreNearUser = useCallback(
     async (location: Coordinates) => {
       try {
-        const fetchedCoffeeStore = await fetchCoffeeStores(
-          location.lat,
-          location.lng,
-          30,
+        const res = await fetch(
+          `/api/getCoffeeStoresByLocation?lat=${location.lat}&lng=${location.lng}&limit=30`,
         );
-        console.log(fetchedCoffeeStore);
+
+        const fetchedCoffeeStore = await res.json();
         dispatch({
           type: ACTION_TYPES.SET_COFFEE_STORES,
           payload: fetchedCoffeeStore,
