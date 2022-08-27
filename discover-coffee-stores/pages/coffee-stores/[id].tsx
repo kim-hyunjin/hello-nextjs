@@ -65,11 +65,17 @@ const CoffeeStoreDetail = (props: Props) => {
   } = useContext(StoreContext);
 
   useEffect(() => {
-    if (!props.coffeeStore && coffeeStores.length > 0) {
+    if (props.coffeeStore) {
+      saveCoffeeStoreToAirtable(props.coffeeStore);
+      return;
+    }
+
+    if (coffeeStores.length > 0) {
       const findCoffeeStoreById = coffeeStores.find(
         (cs) => String(cs.id) === String(id),
       );
       setCoffeeStore(findCoffeeStoreById);
+      saveCoffeeStoreToAirtable(findCoffeeStoreById);
     }
   }, [id, coffeeStores, props.coffeeStore]);
 
@@ -149,3 +155,26 @@ const CoffeeStoreDetail = (props: Props) => {
 };
 
 export default CoffeeStoreDetail;
+
+async function saveCoffeeStoreToAirtable(coffeeStore: CoffeeStore) {
+  try {
+    const { id, name, imgUrl, neighbourhood, address } = coffeeStore;
+    const response = await fetch('/api/createCoffeeStore', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id,
+        name,
+        imgUrl,
+        neighbourhood: neighbourhood || '',
+        address: address || '',
+      }),
+    });
+    const coffeeStoreInDB = await response.json();
+    console.log({ coffeeStoreInDB });
+  } catch (err) {
+    console.error('Error - creating coffee store', err);
+  }
+}

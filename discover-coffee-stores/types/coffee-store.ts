@@ -5,4 +5,5 @@ export interface CoffeeStore {
   websiteUrl: string;
   address: string;
   neighbourhood: string;
+  voting: number;
 }
