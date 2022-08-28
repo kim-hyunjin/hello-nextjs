@@ -94,8 +94,23 @@ const CoffeeStoreDetail = (props: Props) => {
       setVotingCount(data[0].voting);
     }
   }, [data]);
-  const handleUpVoteButton = () => {
-    setVotingCount((prev) => prev + 1);
+  const handleUpVoteButton = async () => {
+    try {
+      const res = await fetch('/api/upvoteCoffeeStore', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id }),
+      });
+
+      const coffeeStoreFromAirtable = await res.json();
+      if (coffeeStoreFromAirtable && coffeeStoreFromAirtable.length > 0) {
+        setVotingCount((prev) => prev + 1);
+      }
+    } catch (err) {
+      console.error('Error upvoting the coffee store', err);
+    }
   };
 
   if (router.isFallback) {
