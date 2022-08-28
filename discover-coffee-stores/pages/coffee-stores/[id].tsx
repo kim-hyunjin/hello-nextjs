@@ -79,7 +79,10 @@ const CoffeeStoreDetail = (props: Props) => {
     }
   }, [id, coffeeStores, props.coffeeStore]);
 
-  const handleUpVoteButton = () => {};
+  const [votingCount, setVotingCount] = useState(0);
+  const handleUpVoteButton = () => {
+    setVotingCount((prev) => prev + 1);
+  };
 
   if (router.isFallback) {
     return <div>Loading...</div>;
@@ -143,7 +146,7 @@ const CoffeeStoreDetail = (props: Props) => {
               height={24}
               alt={'star icon'}
             />
-            <p className={styles.text}>{1}</p>
+            <p className={styles.text}>{votingCount}</p>
           </div>
           <button className={styles.upvoteButton} onClick={handleUpVoteButton}>
             Up vote!
