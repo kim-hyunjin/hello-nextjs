@@ -52,8 +52,6 @@ export default function Home(props: Props) {
     handleTrackLocation();
   }, [handleTrackLocation]);
 
-  console.log(location, locationErrorMsg);
-
   const fetchCoffeeStoreNearUser = useCallback(
     async (location: Coordinates) => {
       try {

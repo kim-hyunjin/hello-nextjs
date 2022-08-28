@@ -56,16 +56,23 @@ interface Props {
 
 const CoffeeStoreDetail = (props: Props) => {
   const router = useRouter();
-
   const id = router.query.id;
 
+  // set coffeeStore if data which from getStaticProps exist
   const [coffeeStore, setCoffeeStore] = useState<CoffeeStore | null>(
     props.coffeeStore,
   );
+  const [votingCount, setVotingCount] = useState(0);
 
+  // this coffeeStores are from client side api (nearby user's location)
   const {
-    state: { coffeeStores },
+    state: { coffeeStores: coffeeStoresUserNearby },
   } = useContext(StoreContext);
+
+  const { data: coffeeStoreFromAirtable, error } = useSWR(
+    `/api/getCoffeeStoreById?id=${id}`,
+    simpleFetcher,
+  );
 
   useEffect(() => {
     if (props.coffeeStore) {
@@ -73,43 +80,28 @@ const CoffeeStoreDetail = (props: Props) => {
       return;
     }
 
-    if (coffeeStores.length > 0) {
-      const findCoffeeStoreById = coffeeStores.find(
+    if (coffeeStoresUserNearby.length > 0) {
+      const findCoffeeStoreById = coffeeStoresUserNearby.find(
         (cs) => String(cs.id) === String(id),
       );
       setCoffeeStore(findCoffeeStoreById);
       saveCoffeeStoreToAirtable(findCoffeeStoreById);
     }
-  }, [id, coffeeStores, props.coffeeStore]);
+  }, [id, coffeeStoresUserNearby, props.coffeeStore]);
 
-  const [votingCount, setVotingCount] = useState(0);
-  const { data, error } = useSWR(
-    `/api/getCoffeeStoreById?id=${id}`,
-    simpleFetcher,
-  );
+  // sync with Airtable
   useEffect(() => {
-    if (data && data.length > 0) {
-      console.log('data from SWR', data);
-      setCoffeeStore(data[0]);
-      setVotingCount(data[0].voting);
+    if (coffeeStoreFromAirtable && coffeeStoreFromAirtable.length > 0) {
+      console.log('data from SWR', coffeeStoreFromAirtable);
+      setCoffeeStore(coffeeStoreFromAirtable[0]);
+      setVotingCount(coffeeStoreFromAirtable[0].voting || 0);
     }
-  }, [data]);
-  const handleUpVoteButton = async () => {
-    try {
-      const res = await fetch('/api/upvoteCoffeeStore', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ id }),
-      });
+  }, [coffeeStoreFromAirtable]);
 
-      const coffeeStoreFromAirtable = await res.json();
-      if (coffeeStoreFromAirtable && coffeeStoreFromAirtable.length > 0) {
-        setVotingCount((prev) => prev + 1);
-      }
-    } catch (err) {
-      console.error('Error upvoting the coffee store', err);
+  const handleUpVoteButton = async () => {
+    const updatedCoffeeStore = await upvoteCoffeeStore(id.toString());
+    if (updatedCoffeeStore && updatedCoffeeStore.length > 0) {
+      setVotingCount((prev) => prev + 1);
     }
   };
 
@@ -206,11 +198,29 @@ async function saveCoffeeStoreToAirtable(coffeeStore: CoffeeStore) {
         imgUrl,
         neighbourhood: neighbourhood || '',
         address: address || '',
+        voting: 0,
       }),
     });
     const coffeeStoreInDB = await response.json();
     console.log({ coffeeStoreInDB });
   } catch (err) {
     console.error('Error - creating coffee store', err);
+  }
+}
+
+async function upvoteCoffeeStore(id: string) {
+  try {
+    const res = await fetch('/api/upvoteCoffeeStore', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    });
+
+    const coffeeStoreFromAirtable = await res.json();
+    return coffeeStoreFromAirtable;
+  } catch (err) {
+    console.error('Error upvoting the coffee store', err);
   }
 }

@@ -24,6 +24,7 @@ const createCoffeeStore = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // find a record
     const coffeeStores = await findCoffeeStoresById(id);
+    console.log('find a coffeeStore before create', coffeeStores);
     if (coffeeStores.length !== 0) {
       res.json(coffeeStores);
       return;
@@ -31,7 +32,7 @@ const createCoffeeStore = async (req: NextApiRequest, res: NextApiResponse) => {
 
     //create a record
     if (!name) {
-      throw new BadRequestError('name id missing');
+      throw new BadRequestError('name is missing');
     }
 
     const createRecords = await table.create([
