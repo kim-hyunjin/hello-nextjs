@@ -17,7 +17,7 @@ const getMinifiedRecords = (records: Records<FieldSet>) => {
   return records.map((record) => getMinifiedRecord(record));
 };
 
-async function findCoffeeStoresById(id: number) {
+async function findCoffeeStoresById(id: string) {
   const findCoffeeStoreRecords = await table
     .select({
       filterByFormula: `id="${id}"`,

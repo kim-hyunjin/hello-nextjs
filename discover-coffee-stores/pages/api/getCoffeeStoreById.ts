@@ -15,7 +15,7 @@ const getCoffeeStoreById = async (
     if (!id) {
       throw new BadRequestError('ID is missing');
     }
-    const coffeeStores = await findCoffeeStoresById(Number(id));
+    const coffeeStores = await findCoffeeStoresById(id.toString());
 
     if (coffeeStores.length !== 0) {
       res.json(coffeeStores);
