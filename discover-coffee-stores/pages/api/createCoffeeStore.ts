@@ -1,8 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import { getMinifiedRecords, table } from '@/lib/airtable';
+import {
+  findCoffeeStoresById,
+  getMinifiedRecords,
+  table,
+} from '@/lib/airtable';
 
-class BadRequestError extends Error {}
+import { httpErrorHandler } from '@/utils/httpErrorHandler';
+
+import { BadRequestError } from '@/types/errors';
 
 const createCoffeeStore = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -43,27 +49,8 @@ const createCoffeeStore = async (req: NextApiRequest, res: NextApiResponse) => {
     const records = getMinifiedRecords(createRecords);
     res.json(records);
   } catch (err) {
-    if (err instanceof BadRequestError) {
-      res.status(400);
-      res.json({ message: err.message });
-      return;
-    }
-
-    res.status(500);
-    res.json({ message: 'Something is went wrong...', err });
+    httpErrorHandler(err, res);
   }
 };
 
 export default createCoffeeStore;
-
-async function findCoffeeStoresById(id: number) {
-  const findCoffeeStoreRecords = await table
-    .select({
-      filterByFormula: `id="${id}"`,
-    })
-    .firstPage();
-
-  const records = getMinifiedRecords(findCoffeeStoreRecords);
-
-  return records;
-}
