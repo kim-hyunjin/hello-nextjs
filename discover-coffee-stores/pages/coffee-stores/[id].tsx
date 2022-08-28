@@ -6,11 +6,14 @@ import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import useSWR from 'swr';
 
 import { fetchCoffeeStores } from 'lib/coffee-store';
 
 import styles from '@/styles/coffee-store.module.css';
 import { CoffeeStore } from '@/types/coffee-store';
+
+import { simpleFetcher } from '@/utils/fetcher';
 
 import { StoreContext } from '@/context';
 
@@ -80,6 +83,17 @@ const CoffeeStoreDetail = (props: Props) => {
   }, [id, coffeeStores, props.coffeeStore]);
 
   const [votingCount, setVotingCount] = useState(0);
+  const { data, error } = useSWR(
+    `/api/getCoffeeStoreById?id=${id}`,
+    simpleFetcher,
+  );
+  useEffect(() => {
+    if (data && data.length > 0) {
+      console.log('data from SWR', data);
+      setCoffeeStore(data[0]);
+      setVotingCount(data[0].voting);
+    }
+  }, [data]);
   const handleUpVoteButton = () => {
     setVotingCount((prev) => prev + 1);
   };
@@ -90,6 +104,10 @@ const CoffeeStoreDetail = (props: Props) => {
 
   if (!coffeeStore) {
     return <div>not found</div>;
+  }
+
+  if (error) {
+    return <div>Something went wrong retrieving coffee store page</div>;
   }
 
   const { address, name, neighbourhood, imgUrl } = coffeeStore;
