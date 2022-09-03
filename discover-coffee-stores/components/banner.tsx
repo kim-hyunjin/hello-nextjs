@@ -1,4 +1,4 @@
-import styles from './Banner.module.css';
+import styles from './banner.module.css';
 
 interface Props {
   buttonText: string;
