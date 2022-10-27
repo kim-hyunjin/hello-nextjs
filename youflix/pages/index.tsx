@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Image from 'next/image';
+import Banner from '../components/banner/Banner';
 import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
@@ -13,6 +13,12 @@ const Home: NextPage = () => {
       </Head>
 
       <h1>Youflix</h1>
+
+      <Banner
+        title='Clifford the red dog'
+        subTitle='a very cute dog'
+        imgUrl='/static/clifford.webp'
+      />
     </div>
   );
 };
