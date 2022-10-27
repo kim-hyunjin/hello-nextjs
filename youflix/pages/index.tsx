@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
 import Banner from '../components/banner/Banner';
+import NavBar from '../components/nav/Navbar';
 import styles from '../styles/Home.module.css';
 
 const Home: NextPage = () => {
@@ -12,8 +13,7 @@ const Home: NextPage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <h1>Youflix</h1>
-
+      <NavBar username='ankita@ank.com' />
       <Banner
         title='Clifford the red dog'
         subTitle='a very cute dog'
