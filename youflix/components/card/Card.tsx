@@ -1,5 +1,8 @@
 import Image from 'next/image';
 
+import cls from 'classnames';
+import { motion } from 'framer-motion';
+
 import styles from './Card.module.css';
 
 interface CardProps {
@@ -17,9 +20,12 @@ const Card = (props: CardProps) => {
   return (
     <div className={styles.container}>
       Card
-      <div className={classMap[size]}>
+      <motion.div
+        className={cls(styles.imgMotionWrapper, classMap[size])}
+        whileHover={{ scale: 1.2 }}
+      >
         <Image src={imgUrl} alt='image' layout='fill' className={styles.cardImg} />
-      </div>
+      </motion.div>
     </div>
   );
 };
