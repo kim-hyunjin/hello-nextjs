@@ -22,8 +22,8 @@ const Home: NextPage = () => {
       />
 
       <Card imgUrl='/static/clifford.webp' size='large' />
-      <Card imgUrl='/static/clifford.webp' size='medium' />
-      <Card imgUrl='/static/clifford.webp' size='small' />
+      <Card imgUrl='/static/clifford.webp' />
+      <Card imgUrl='' size='small' />
     </div>
   );
 };

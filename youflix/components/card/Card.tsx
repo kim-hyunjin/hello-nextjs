@@ -4,19 +4,31 @@ import cls from 'classnames';
 import { motion } from 'framer-motion';
 
 import styles from './Card.module.css';
+import { ReactEventHandler, useCallback, useMemo, useState } from 'react';
 
+const DEFAULT_IMAGE_SRC =
+  'https://images.unsplash.com/photo-1485846234645-a62644f84728?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1340&q=80';
 interface CardProps {
   imgUrl: string;
-  size: 'large' | 'medium' | 'small';
+  size?: 'large' | 'medium' | 'small';
 }
 
-const Card = (props: CardProps) => {
-  const { imgUrl, size } = props;
-  const classMap = {
-    large: styles.lgItem,
-    medium: styles.mdItem,
-    small: styles.smItem,
-  };
+const Card = ({ imgUrl, size = 'medium' }: CardProps) => {
+  const [imgSrc, setImgSrc] = useState(imgUrl);
+
+  const classMap = useMemo(
+    () => ({
+      large: styles.lgItem,
+      medium: styles.mdItem,
+      small: styles.smItem,
+    }),
+    []
+  );
+
+  const handleOnError: ReactEventHandler<HTMLImageElement> = useCallback((e) => {
+    setImgSrc(DEFAULT_IMAGE_SRC);
+  }, []);
+
   return (
     <div className={styles.container}>
       Card
@@ -24,7 +36,13 @@ const Card = (props: CardProps) => {
         className={cls(styles.imgMotionWrapper, classMap[size])}
         whileHover={{ scale: 1.2 }}
       >
-        <Image src={imgUrl} alt='image' layout='fill' className={styles.cardImg} />
+        <Image
+          src={imgSrc}
+          alt='image'
+          layout='fill'
+          className={styles.cardImg}
+          onError={handleOnError}
+        />
       </motion.div>
     </div>
   );
