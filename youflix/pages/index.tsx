@@ -2,6 +2,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import Banner from '../components/banner/Banner';
 import Card from '../components/card/Card';
+import SectionCards from '../components/card/SectionCards';
 import NavBar from '../components/nav/Navbar';
 import styles from '../styles/Home.module.css';
 
@@ -20,10 +21,7 @@ const Home: NextPage = () => {
         subTitle='a very cute dog'
         imgUrl='/static/clifford.webp'
       />
-
-      <Card imgUrl='/static/clifford.webp' size='large' />
-      <Card imgUrl='/static/clifford.webp' />
-      <Card imgUrl='' size='small' />
+      <SectionCards title='Disney' />
     </div>
   );
 };
