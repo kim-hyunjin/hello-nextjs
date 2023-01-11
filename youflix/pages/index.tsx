@@ -5,6 +5,21 @@ import SectionCards from '../components/card/SectionCards';
 import NavBar from '../components/nav/Navbar';
 import styles from '../styles/Home.module.css';
 
+const disneyVideos = [
+  {
+    id: 1,
+    imgUrl: '/static/clifford.webp',
+  },
+  {
+    id: 2,
+    imgUrl: '/static/clifford.webp',
+  },
+  {
+    id: 3,
+    imgUrl: '/static/clifford.webp',
+  },
+];
+
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -21,7 +36,8 @@ const Home: NextPage = () => {
         imgUrl='/static/clifford.webp'
       />
       <div className={styles.sectionWrapper}>
-        <SectionCards title='Disney' />
+        <SectionCards title='Disney' videos={disneyVideos} size={'large'} />
+        <SectionCards title='Disney' videos={disneyVideos} size={'medium'} />
       </div>
     </div>
   );
