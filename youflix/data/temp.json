@@ -1,0 +1,174 @@
+{
+  "items": [
+    {
+      "kind": "youtube#searchResult",
+      "etag": "dOG2n286_uVdiUqxEDiKrbxazww",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "za_EbAThN1A"
+      },
+      "snippet": {
+        "publishedAt": "2023-01-12T10:00:36Z",
+        "channelId": "UCUj6rrhMTR9pipbAWBAMvUQ",
+        "title": "침착맨이 로마군 소대장이 된다면",
+        "description": "관련 재생목록 •침착맨의 짧게 한 게임들: https://youtube.com/playlist?list=PLif_jr7pPZACiQw3uIILLjASbbGKOS-u2 ▷생방송 원본 ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/za_EbAThN1A/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/za_EbAThN1A/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/za_EbAThN1A/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "침착맨",
+        "liveBroadcastContent": "none",
+        "publishTime": "2023-01-12T10:00:36Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "1Exz-BPRdfpSnsiKj-4UDI4irEg",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "h3D6rKYKC9A"
+      },
+      "snippet": {
+        "publishedAt": "2023-01-11T10:00:33Z",
+        "channelId": "UCUj6rrhMTR9pipbAWBAMvUQ",
+        "title": "겨울은 신난다 (with 김아랑 선수)｜방랑화가 이병건｜EP.06 강원도 평창 &amp; 강릉",
+        "description": "관련 재생목록 •방랑화가 이병건: https://www.youtube.com/playlist?list=PLif_jr7pPZABUzvHxpGD9IYUDczsRtIPo ▷제작 •출연: ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/h3D6rKYKC9A/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/h3D6rKYKC9A/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/h3D6rKYKC9A/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "침착맨",
+        "liveBroadcastContent": "none",
+        "publishTime": "2023-01-11T10:00:33Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "IxuM7DZWsx6fCLOxemsMzpD2KPQ",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "cspfdOFcOsE"
+      },
+      "snippet": {
+        "publishedAt": "2023-01-10T10:00:29Z",
+        "channelId": "UCUj6rrhMTR9pipbAWBAMvUQ",
+        "title": "한국 좀비사태 발생시 필요한 현실능력 월드컵",
+        "description": "관련 영상 •좀비사태 발생시 피신할 장소 월드컵: https://youtu.be/tttr8nRiUL8 •좀비사태 발생시 사용할 무기 월드컵: ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/cspfdOFcOsE/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/cspfdOFcOsE/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/cspfdOFcOsE/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "침착맨",
+        "liveBroadcastContent": "none",
+        "publishTime": "2023-01-10T10:00:29Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "d2xXYf_5ZFEANqOyq2Dxn0izDlw",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "SP-LJqVgQuw"
+      },
+      "snippet": {
+        "publishedAt": "2023-01-05T10:00:10Z",
+        "channelId": "UCUj6rrhMTR9pipbAWBAMvUQ",
+        "title": "[ENG] 뉴진스 초대석",
+        "description": "관련 재생목록 •침착맨의 일상재롱: https://goo.gl/OJ4Uoa ▷생방송 원본 •2023년 1월 2일 방송분: https://youtu.be/An_hmZZ3m9g ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/SP-LJqVgQuw/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/SP-LJqVgQuw/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/SP-LJqVgQuw/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "침착맨",
+        "liveBroadcastContent": "none",
+        "publishTime": "2023-01-05T10:00:10Z"
+      }
+    },
+    {
+      "kind": "youtube#searchResult",
+      "etag": "2bLkcEQnTxkETPWoT4vkBbPpux8",
+      "id": {
+        "kind": "youtube#video",
+        "videoId": "RRnO-9xfJY8"
+      },
+      "snippet": {
+        "publishedAt": "2023-01-03T10:00:21Z",
+        "channelId": "UCUj6rrhMTR9pipbAWBAMvUQ",
+        "title": "많이 먹는 사람과 많이 먹기",
+        "description": "관련 재생목록 •침착맨의 식욕저하 다이어트 먹방: https://url.kr/a4vk8m ▷생방송 원본 •2022년 12월 28일 방송분: ...",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/RRnO-9xfJY8/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/RRnO-9xfJY8/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/RRnO-9xfJY8/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "침착맨",
+        "liveBroadcastContent": "none",
+        "publishTime": "2023-01-03T10:00:21Z"
+      }
+    }
+  ]
+}

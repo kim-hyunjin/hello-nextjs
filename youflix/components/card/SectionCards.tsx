@@ -1,10 +1,11 @@
+import Video from '../../types/video';
 import Card from './Card';
 
 import styles from './SectionCards.module.css';
 
 interface SectionCardsProps {
   title: string;
-  videos: { id: number; imgUrl: string }[];
+  videos: Video[];
   size?: 'large' | 'medium' | 'small';
 }
 const SectionCards = (props: SectionCardsProps) => {

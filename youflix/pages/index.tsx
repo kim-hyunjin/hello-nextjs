@@ -4,23 +4,10 @@ import Banner from '../components/banner/Banner';
 import SectionCards from '../components/card/SectionCards';
 import NavBar from '../components/nav/Navbar';
 import styles from '../styles/Home.module.css';
-
-const disneyVideos = [
-  {
-    id: 1,
-    imgUrl: '/static/clifford.webp',
-  },
-  {
-    id: 2,
-    imgUrl: '/static/clifford.webp',
-  },
-  {
-    id: 3,
-    imgUrl: '/static/clifford.webp',
-  },
-];
+import { getVideos } from '../lib/videos';
 
 const Home: NextPage = () => {
+  const videos = getVideos();
   return (
     <div className={styles.container}>
       <Head>
@@ -36,8 +23,8 @@ const Home: NextPage = () => {
         imgUrl='/static/clifford.webp'
       />
       <div className={styles.sectionWrapper}>
-        <SectionCards title='Disney' videos={disneyVideos} size={'large'} />
-        <SectionCards title='Disney' videos={disneyVideos} size={'medium'} />
+        <SectionCards title='침착맨' videos={videos} size={'large'} />
+        <SectionCards title='침착맨' videos={videos} size={'medium'} />
       </div>
     </div>
   );
