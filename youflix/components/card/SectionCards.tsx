@@ -9,7 +9,7 @@ interface SectionCardsProps {
   size?: 'large' | 'medium' | 'small';
 }
 const SectionCards = (props: SectionCardsProps) => {
-  const { title, videos, size } = props;
+  const { title, videos = [], size } = props;
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>{title}</h2>

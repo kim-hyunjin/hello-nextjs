@@ -1,13 +1,24 @@
-import type { NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Banner from '../components/banner/Banner';
 import SectionCards from '../components/card/SectionCards';
 import NavBar from '../components/nav/Navbar';
 import styles from '../styles/Home.module.css';
 import { getVideos } from '../lib/videos';
+import Video from '../types/video';
 
-const Home: NextPage = () => {
-  const videos = getVideos();
+type IndexPageServerData = {
+  videos: Video[];
+};
+export const getServerSideProps: GetServerSideProps<IndexPageServerData> = async () => {
+  const videos = await getVideos();
+
+  return {
+    props: { videos },
+  };
+};
+
+const Home: NextPage<IndexPageServerData> = ({ videos }) => {
   return (
     <div className={styles.container}>
       <Head>
