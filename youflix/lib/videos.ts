@@ -19,6 +19,8 @@ export const getVideos = async (type: 'video' | 'playlist'): Promise<Video[]> =>
     return data.items.map((v: any) => ({
       id: type === 'video' ? v.id.videoId : v.id.playlistId,
       imgUrl: v.snippet.thumbnails.high.url,
+      title: v.snippet.title,
+      description: v.snippet.description,
     }));
   } catch (e) {
     console.error('error while call youtube api', e);

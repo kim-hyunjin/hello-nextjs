@@ -20,7 +20,7 @@ const NavBar = (props: { username: string }) => {
       <div className={styles.wrapper}>
         <Link href={'/'}>
           <a className={styles.logoLink}>
-            <div className={styles.logoWrapper}>YOUFLIX</div>
+            <div className={styles.logoWrapper}>CHIMFLIX</div>
           </a>
         </Link>
         <ul className={styles.navItems}>
