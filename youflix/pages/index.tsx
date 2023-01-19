@@ -9,16 +9,17 @@ import Video from '../types/video';
 
 type IndexPageServerData = {
   videos: Video[];
+  playlist: Video[];
 };
 export const getServerSideProps: GetServerSideProps<IndexPageServerData> = async () => {
-  const videos = await getVideos();
+  const [videos, playlist] = await Promise.all([getVideos('video'), getVideos('playlist')]);
 
   return {
-    props: { videos },
+    props: { videos, playlist },
   };
 };
 
-const Home: NextPage<IndexPageServerData> = ({ videos }) => {
+const Home: NextPage<IndexPageServerData> = ({ videos, playlist }) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -27,15 +28,17 @@ const Home: NextPage<IndexPageServerData> = ({ videos }) => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
 
-      <NavBar username='ankita@ank.com' />
-      <Banner
-        title='Clifford the red dog'
-        subTitle='a very cute dog'
-        imgUrl='/static/clifford.webp'
-      />
-      <div className={styles.sectionWrapper}>
-        <SectionCards title='침착맨' videos={videos} size={'large'} />
-        <SectionCards title='침착맨' videos={videos} size={'medium'} />
+      <div className={styles.main}>
+        <NavBar username='ankita@ank.com' />
+        <Banner
+          title='Clifford the red dog'
+          subTitle='a very cute dog'
+          imgUrl='/static/clifford.webp'
+        />
+        <div className={styles.sectionWrapper}>
+          <SectionCards title='최신 컨텐츠' videos={videos} size={'large'} />
+          <SectionCards title='플레이리스트' videos={playlist} size={'medium'} />
+        </div>
       </div>
     </div>
   );
