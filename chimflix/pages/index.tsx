@@ -7,6 +7,8 @@ import styles from '../styles/Home.module.css';
 import { getPlaylists, getVideos } from '../lib/videos';
 import { YoutubeSnippet } from '../types/youtube';
 
+import { magic } from '@/lib/magic-client';
+
 type IndexPageServerData = {
   recentVideos: YoutubeSnippet[];
   popularVideos: YoutubeSnippet[];
