@@ -6,25 +6,47 @@ import { ChangeEventHandler, MouseEventHandler, useCallback, useState } from 're
 import { emailValidator } from '@/lib/validator';
 import { useRouter } from 'next/router';
 
+import { magic } from '@/lib/magic-client';
+
 const Login = () => {
   const [email, setEmail] = useState<string>('');
   const [userMsg, setUserMsg] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const router = useRouter();
 
   const handleOnChangeEmail: ChangeEventHandler<HTMLInputElement> = useCallback((e) => {
     setEmail(e.target.value);
   }, []);
 
-  const handleLoginWithEmail: MouseEventHandler<HTMLButtonElement> = (e) => {
+  const handleLoginWithEmail: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
 
     const [isValid, errMsg] = emailValidator.validate(email);
 
-    if (isValid) {
-      setUserMsg('');
-      router.push('/');
-    } else {
+    if (!isValid) {
       setUserMsg(errMsg);
+      return;
+    }
+
+    if (!magic) {
+      return;
+    }
+
+    try {
+      setUserMsg('');
+      setIsLoading(true);
+
+      const didToken = await magic.auth.loginWithMagicLink({
+        email,
+      });
+      if (didToken) {
+        router.push('/');
+      }
+    } catch (error) {
+      setIsLoading(false);
+      setUserMsg('Something went wrong...');
+      console.error('Something went wrong while logging in', error);
     }
   };
 
@@ -49,7 +71,7 @@ const Login = () => {
           />
           <p className={styles.userMsg}>{userMsg}</p>
           <button className={styles.loginBtn} onClick={handleLoginWithEmail}>
-            Sign In
+            {isLoading ? 'Loading...' : 'Sign In'}
           </button>
         </div>
       </main>
