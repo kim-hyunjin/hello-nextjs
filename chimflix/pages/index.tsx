@@ -30,7 +30,7 @@ const Home: NextPage<IndexPageServerData> = ({ videos, playlist }) => {
 
       <div className={styles.main}>
         <NavBar />
-        <Banner title={videos[0].title} imgUrl={videos[0].imgUrl} />
+        <Banner videoId={videos[0].id} title={videos[0].title} imgUrl={videos[0].imgUrl} />
         <div className={styles.sectionWrapper}>
           <SectionCards title='최신 컨텐츠' videos={videos} size={'large'} />
           <SectionCards title='플레이리스트' videos={playlist} size={'medium'} />
