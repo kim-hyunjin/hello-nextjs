@@ -29,7 +29,7 @@ const Home: NextPage<IndexPageServerData> = ({ videos, playlist }) => {
       </Head>
 
       <div className={styles.main}>
-        <NavBar username='hyunjin1612@gmail.com' />
+        <NavBar />
         <Banner title={videos[0].title} imgUrl={videos[0].imgUrl} />
         <div className={styles.sectionWrapper}>
           <SectionCards title='최신 컨텐츠' videos={videos} size={'large'} />
