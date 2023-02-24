@@ -39,7 +39,6 @@
 /** Makes video edges curvy **/
 .videoPlayer {
   border-radius: 10px 10px 0px 0px;
-  composes: borderBoxShadow;
 }
 
 /** Modal body **/
@@ -54,7 +53,7 @@
 }
 
 .col1 {
-  max-height: 23rem /* 208px */;
+  max-height: 50vh;
   overflow-y: scroll;
 }
 

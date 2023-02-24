@@ -7,6 +7,7 @@ import styles from '@/styles/Video.module.css';
 import { getVideoDetail, getVideos } from '@/lib/videos';
 import { VideoInfoType } from '@/types/video';
 import { GetStaticProps } from 'next';
+import NavBar from '@/components/nav/Navbar';
 
 Modal.setAppElement('#__next');
 
@@ -43,6 +44,7 @@ const Video = ({ video }: { video: VideoInfoType }) => {
 
   return (
     <div className={styles.container}>
+      <NavBar />
       <Modal
         isOpen={true}
         contentLabel='Watch the video'
@@ -52,6 +54,7 @@ const Video = ({ video }: { video: VideoInfoType }) => {
       >
         <iframe
           id='ytplayer'
+          className={styles.videoPlayer}
           width='100%'
           height='360'
           src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
