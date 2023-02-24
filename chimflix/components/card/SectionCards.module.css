@@ -3,6 +3,7 @@
   background-color: --var(--black50);
   padding-left: 1rem /* 16px */;
   padding-right: 1rem /* 16px */;
+  margin-top: 2rem;
 }
 
 .title {
@@ -13,11 +14,9 @@
 
 .cardWrapper {
   display: flex;
-  padding-top: 1.7rem;
-  padding-bottom: 1.5rem;
+  margin-top: 1.7rem;
+  margin-bottom: 1.5rem;
   margin-right: 0.75rem /* 12px */;
-  overflow-x: scroll;
-  overflow-y: hidden;
 }
 
 .wrap {
