@@ -15,14 +15,16 @@ const Video = () => {
   }, [router]);
 
   return (
-    <div>
-      video page {videoId}
+    <div className={styles.container}>
       <Modal
         isOpen={true}
         contentLabel='Watch the video'
         onRequestClose={handleClose}
+        className={styles.modal}
         overlayClassName={styles.overlay}
-      />
+      >
+        <div>Modal body</div>
+      </Modal>
     </div>
   );
 };
