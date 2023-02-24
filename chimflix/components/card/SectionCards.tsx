@@ -1,21 +1,29 @@
-import Video from '../../types/video';
+import useHorizontalScrolling from '@/hooks/useHorizontalScrolling';
+import Link from 'next/link';
+import { VideoType } from '../../types/video';
 import Card from './Card';
 
 import styles from './SectionCards.module.css';
 
 interface SectionCardsProps {
   title: string;
-  videos: Video[];
+  videos: VideoType[];
   size?: 'large' | 'medium' | 'small';
 }
 const SectionCards = (props: SectionCardsProps) => {
   const { title, videos = [], size } = props;
+
+  const { scrollRef, onWheel, scrollStyle } = useHorizontalScrolling();
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>{title}</h2>
-      <div className={styles.cardWrapper}>
+      <div ref={scrollRef} className={styles.cardWrapper} onWheel={onWheel} style={scrollStyle}>
         {videos.map((video, i) => (
-          <Card key={video.id} imgUrl={video.imgUrl} size={size} elemIndex={i} />
+          <Link key={video.id} href={`/video/${video.id}`}>
+            <a>
+              <Card imgUrl={video.imgUrl} size={size} elemIndex={i} />
+            </a>
+          </Link>
         ))}
       </div>
     </section>
