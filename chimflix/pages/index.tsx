@@ -1,4 +1,4 @@
-import type { GetServerSideProps, NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import Banner from '../components/banner/Banner';
 import SectionCards from '../components/card/SectionCards';
@@ -12,7 +12,7 @@ type IndexPageServerData = {
   popularVideos: VideoType[];
   playlist: VideoType[];
 };
-export const getServerSideProps: GetServerSideProps<IndexPageServerData> = async () => {
+export const getStaticProps: GetStaticProps<IndexPageServerData> = async () => {
   const [recentVideos, popularVideos, playlist] = await Promise.all([
     getVideos({ order: 'date' }),
     getVideos({ order: 'viewCount' }),
@@ -21,6 +21,7 @@ export const getServerSideProps: GetServerSideProps<IndexPageServerData> = async
 
   return {
     props: { recentVideos, popularVideos, playlist },
+    revalidate: 60 * 60, // 1hour
   };
 };
 
