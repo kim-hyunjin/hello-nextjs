@@ -5,7 +5,7 @@ import SectionCards from '../components/card/SectionCards';
 import NavBar from '../components/nav/Navbar';
 import styles from '../styles/Home.module.css';
 import { getPlaylists, getVideos } from '../lib/videos';
-import { YoutubeSnippet } from '../types/video';
+import { YoutubeSnippet } from '../types/youtube';
 
 type IndexPageServerData = {
   recentVideos: YoutubeSnippet[];

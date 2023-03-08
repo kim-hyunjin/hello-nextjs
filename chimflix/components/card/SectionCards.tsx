@@ -1,6 +1,6 @@
 import useHorizontalScrolling from '@/hooks/useHorizontalScrolling';
 import Link from 'next/link';
-import { YoutubeSnippet } from '../../types/video';
+import { YoutubeSnippet } from '../../types/youtube';
 import Card from './Card';
 
 import styles from './SectionCards.module.css';

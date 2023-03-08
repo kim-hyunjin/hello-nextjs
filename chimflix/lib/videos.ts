@@ -1,4 +1,4 @@
-import { YoutubeSnippet, VideoInfo } from '../types/video';
+import { YoutubeSnippet, VideoInfo } from '../types/youtube';
 
 const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3';
 const calmdownman_id = 'UCUj6rrhMTR9pipbAWBAMvUQ';

@@ -5,7 +5,7 @@ import clsx from 'classnames';
 
 import styles from '@/styles/Video.module.css';
 import { getVideoDetail, getVideos } from '@/lib/videos';
-import { VideoInfo } from '@/types/video';
+import { VideoInfo } from '@/types/youtube';
 import { GetStaticProps } from 'next';
 import NavBar from '@/components/nav/Navbar';
 
