@@ -1,13 +1,14 @@
 import useHorizontalScrolling from '@/hooks/useHorizontalScrolling';
 import Link from 'next/link';
-import { VideoType } from '../../types/video';
+import { YoutubeSnippet } from '../../types/video';
 import Card from './Card';
 
 import styles from './SectionCards.module.css';
 
 interface SectionCardsProps {
   title: string;
-  videos: VideoType[];
+  videos: YoutubeSnippet[];
+  type: 'video' | 'playilst';
   size?: 'large' | 'medium' | 'small';
 }
 const SectionCards = (props: SectionCardsProps) => {

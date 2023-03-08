@@ -5,14 +5,14 @@ import clsx from 'classnames';
 
 import styles from '@/styles/Video.module.css';
 import { getVideoDetail, getVideos } from '@/lib/videos';
-import { VideoInfoType } from '@/types/video';
+import { VideoInfo } from '@/types/video';
 import { GetStaticProps } from 'next';
 import NavBar from '@/components/nav/Navbar';
 
 Modal.setAppElement('#__next');
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const video: VideoInfoType | null = await getVideoDetail(String(params?.videoId));
+  const video: VideoInfo | null = await getVideoDetail(String(params?.videoId));
 
   return {
     props: {
@@ -32,7 +32,7 @@ export async function getStaticPaths() {
   return { paths, fallback: true };
 }
 
-const Video = ({ video }: { video: VideoInfoType }) => {
+const Video = ({ video }: { video: VideoInfo }) => {
   const router = useRouter();
   const { videoId } = router.query;
 
