@@ -42,9 +42,9 @@ const Home: NextPage<IndexPageServerData> = ({ recentVideos, popularVideos, play
           imgUrl={recentVideos[0].imgUrl}
         />
         <div className={styles.sectionWrapper}>
-          <SectionCards title='최신 컨텐츠' videos={recentVideos} size={'large'} type={'video'} />
-          <SectionCards title='인기 컨텐츠' videos={popularVideos} size={'medium'} type={'video'} />
-          <SectionCards title='플레이리스트' videos={playlist} size={'medium'} type={'playilst'} />
+          <SectionCards title='최신 컨텐츠' datas={recentVideos} size={'large'} type={'video'} />
+          <SectionCards title='인기 컨텐츠' datas={popularVideos} size={'medium'} type={'video'} />
+          <SectionCards title='플레이리스트' datas={playlist} size={'medium'} type={'playlist'} />
         </div>
       </div>
     </div>

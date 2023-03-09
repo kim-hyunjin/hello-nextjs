@@ -86,3 +86,30 @@ export const getVideoDetail = async (id: string): Promise<VideoInfo | null> => {
     return null;
   }
 };
+
+export const getPlaylistItems = async (playlistId: string): Promise<YoutubeSnippet[]> => {
+  try {
+    const response = await fetch(
+      `${YOUTUBE_API_URL}/playlistItems?part=snippet,contentDetails&playlistId=${playlistId}&key=${process.env.YOUTUBE_API_KEY}`
+    );
+
+    const data = await response.json();
+
+    if (data?.error) {
+      console.error('youtube api error', data.error);
+      return [];
+    }
+
+    console.log(data);
+
+    return data.items.map((v: any) => ({
+      id: v.contentDetails.videoId,
+      title: v.snippet.title,
+      description: v.snippet.description,
+      imgUrl: v.snippet.thumbnails.high.url,
+    }));
+  } catch (e) {
+    console.error('error while call youtube api', e);
+    return [];
+  }
+};

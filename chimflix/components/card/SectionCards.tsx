@@ -7,22 +7,22 @@ import styles from './SectionCards.module.css';
 
 interface SectionCardsProps {
   title: string;
-  videos: YoutubeSnippet[];
-  type: 'video' | 'playilst';
+  datas: YoutubeSnippet[];
+  type: 'video' | 'playlist';
   size?: 'large' | 'medium' | 'small';
 }
 const SectionCards = (props: SectionCardsProps) => {
-  const { title, videos = [], size } = props;
+  const { title, datas = [], type, size } = props;
 
   const { scrollRef, onWheel, scrollStyle } = useHorizontalScrolling();
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>{title}</h2>
       <div ref={scrollRef} className={styles.cardWrapper} onWheel={onWheel} style={scrollStyle}>
-        {videos.map((video, i) => (
-          <Link key={video.id} href={`/video/${video.id}`}>
+        {datas.map((data, i) => (
+          <Link key={data.id} href={`/${type}/${data.id}`}>
             <a>
-              <Card imgUrl={video.imgUrl} size={size} elemIndex={i} />
+              <Card imgUrl={data.imgUrl} size={size} elemIndex={i} />
             </a>
           </Link>
         ))}
