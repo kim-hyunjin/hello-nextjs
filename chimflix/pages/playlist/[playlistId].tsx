@@ -4,50 +4,61 @@ import Modal from 'react-modal';
 import clsx from 'classnames';
 
 import styles from '@/styles/Video.module.css';
-import { getVideoDetail, getVideos } from '@/lib/videos';
-import { VideoInfo } from '@/types/youtube';
+import { getPlaylistDetail, getPlaylistItems, getPlaylists } from '@/lib/videos';
+import { PlaylistInfo, YoutubeSnippet } from '@/types/youtube';
 import { GetStaticProps } from 'next';
 import NavBar from '@/components/nav/Navbar';
+import VideoList from '@/components/videos/VideoList';
 
 Modal.setAppElement('#__next');
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const video: VideoInfo | null = await getVideoDetail(String(params?.videoId));
+  const playlistId = String(params?.playlistId);
+  const videos: YoutubeSnippet[] = await getPlaylistItems(playlistId);
+  const playlistInfo: PlaylistInfo | null = await getPlaylistDetail(playlistId);
 
   return {
     props: {
-      video,
+      videos,
+      playlistInfo,
     },
     revalidate: 60 * 30, // 30min
   };
 };
 
 export async function getStaticPaths() {
-  const listOfVideos = await getVideos();
+  const listOfPlaylists = await getPlaylists();
 
-  const paths = listOfVideos.map((video) => ({
-    params: { videoId: video.id },
+  const paths = listOfPlaylists.map((p) => ({
+    params: { playlistId: p.id },
   }));
 
   return { paths, fallback: true };
 }
 
-const Video = ({ video }: { video: VideoInfo }) => {
+const Video = ({
+  videos,
+  playlistInfo,
+}: {
+  videos: YoutubeSnippet[];
+  playlistInfo: PlaylistInfo | null;
+}) => {
   const router = useRouter();
-  const { videoId } = router.query;
 
   const handleClose = useCallback(() => {
-    router.back();
+    router.push('/');
   }, [router]);
 
-  const { title, publishedAt, description, viewCount } = video;
+  if (!playlistInfo) throw new Error('playlist 정보가 없습니다.');
+
+  const { title, description, publishedAt } = playlistInfo;
 
   return (
     <div className={styles.container}>
       <NavBar />
       <Modal
         isOpen={true}
-        contentLabel='Watch the video'
+        contentLabel='Watch the series'
         onRequestClose={handleClose}
         className={styles.modal}
         overlayClassName={styles.overlay}
@@ -57,7 +68,7 @@ const Video = ({ video }: { video: VideoInfo }) => {
           className={styles.videoPlayer}
           width='100%'
           height='360'
-          src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+          src={`https://www.youtube.com/embed/${videos[0].id}?autoplay=1`}
           frameBorder='0'
           allowFullScreen
         ></iframe>
@@ -70,11 +81,12 @@ const Video = ({ video }: { video: VideoInfo }) => {
             </div>
             <div className={styles.col2}>
               <p className={clsx(styles.subText, styles.subTextWrapper)}>
-                <span className={styles.labelText}>View Count: </span>
-                <span className={styles.valueText}>{viewCount}</span>
+                <span className={styles.labelText}>에피소드: </span>
+                <span className={styles.valueText}>{videos.length}개</span>
               </p>
             </div>
           </div>
+          <VideoList videos={videos} />
         </div>
       </Modal>
     </div>
