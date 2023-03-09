@@ -15,6 +15,7 @@
   margin: 0 auto;
 
   width: 800px;
+  height: 100%;
   bottom: 40px;
   background-color: var(--black40);
   top: 10%;
@@ -74,6 +75,7 @@
 .description {
   margin-bottom: 0.5rem /* 8px */;
   margin-top: 0.75rem /* 12px */;
+  color: var(--gray10);
 }
 
 .col2 {

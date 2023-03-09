@@ -5,12 +5,12 @@ import SectionCards from '../components/card/SectionCards';
 import NavBar from '../components/nav/Navbar';
 import styles from '../styles/Home.module.css';
 import { getPlaylists, getVideos } from '../lib/videos';
-import { VideoType } from '../types/video';
+import { YoutubeSnippet } from '../types/youtube';
 
 type IndexPageServerData = {
-  recentVideos: VideoType[];
-  popularVideos: VideoType[];
-  playlist: VideoType[];
+  recentVideos: YoutubeSnippet[];
+  popularVideos: YoutubeSnippet[];
+  playlist: YoutubeSnippet[];
 };
 export const getStaticProps: GetStaticProps<IndexPageServerData> = async () => {
   const [recentVideos, popularVideos, playlist] = await Promise.all([
@@ -42,9 +42,9 @@ const Home: NextPage<IndexPageServerData> = ({ recentVideos, popularVideos, play
           imgUrl={recentVideos[0].imgUrl}
         />
         <div className={styles.sectionWrapper}>
-          <SectionCards title='최신 컨텐츠' videos={recentVideos} size={'large'} />
-          <SectionCards title='인기 컨텐츠' videos={popularVideos} size={'medium'} />
-          <SectionCards title='플레이리스트' videos={playlist} size={'medium'} />
+          <SectionCards title='최신 컨텐츠' datas={recentVideos} size={'large'} type={'video'} />
+          <SectionCards title='인기 컨텐츠' datas={popularVideos} size={'medium'} type={'video'} />
+          <SectionCards title='플레이리스트' datas={playlist} size={'medium'} type={'playlist'} />
         </div>
       </div>
     </div>
