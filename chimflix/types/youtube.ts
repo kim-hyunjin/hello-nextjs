@@ -11,3 +11,9 @@ export interface VideoInfo {
   publishedAt: string;
   viewCount: number;
 }
+
+export interface PlaylistInfo {
+  title: string;
+  description: string;
+  publishedAt: string;
+}

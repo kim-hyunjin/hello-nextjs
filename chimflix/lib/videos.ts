@@ -1,4 +1,4 @@
-import { YoutubeSnippet, VideoInfo } from '../types/youtube';
+import { YoutubeSnippet, VideoInfo, PlaylistInfo } from '../types/youtube';
 
 const YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3';
 const calmdownman_id = 'UCUj6rrhMTR9pipbAWBAMvUQ';
@@ -100,8 +100,6 @@ export const getPlaylistItems = async (playlistId: string): Promise<YoutubeSnipp
       return [];
     }
 
-    console.log(data);
-
     return data.items.map((v: any) => ({
       id: v.contentDetails.videoId,
       title: v.snippet.title,
@@ -111,5 +109,31 @@ export const getPlaylistItems = async (playlistId: string): Promise<YoutubeSnipp
   } catch (e) {
     console.error('error while call youtube api', e);
     return [];
+  }
+};
+
+export const getPlaylistDetail = async (playlistId: string): Promise<PlaylistInfo | null> => {
+  try {
+    const response = await fetch(
+      `${YOUTUBE_API_URL}/playlists?part=snippet&id=${playlistId}&key=${process.env.YOUTUBE_API_KEY}`
+    );
+
+    const data = await response.json();
+
+    if (data?.error) {
+      console.error('youtube api error', data.error);
+      return null;
+    }
+
+    const { title, description, publishedAt } = data.items[0].snippet;
+
+    return {
+      title,
+      description,
+      publishedAt: new Date(publishedAt).getFullYear().toString(),
+    };
+  } catch (e) {
+    console.error('error while call youtube api', e);
+    return null;
   }
 };
