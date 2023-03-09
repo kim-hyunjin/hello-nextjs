@@ -2,6 +2,10 @@
   padding: 0;
 }
 
+.listItem:last-child {
+  border-bottom: none;
+}
+
 .listItem {
   display: flex;
   align-items: center;

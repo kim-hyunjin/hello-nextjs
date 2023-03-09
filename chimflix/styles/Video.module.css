@@ -15,7 +15,8 @@
   margin: 0 auto;
 
   width: 800px;
-  height: 100%;
+  height: max-content;
+  padding-bottom: 3rem;
   bottom: 40px;
   background-color: var(--black40);
   top: 10%;

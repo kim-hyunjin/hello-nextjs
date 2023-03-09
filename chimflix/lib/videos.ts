@@ -90,7 +90,7 @@ export const getVideoDetail = async (id: string): Promise<VideoInfo | null> => {
 export const getPlaylistItems = async (playlistId: string): Promise<YoutubeSnippet[]> => {
   try {
     const response = await fetch(
-      `${YOUTUBE_API_URL}/playlistItems?part=snippet,contentDetails&playlistId=${playlistId}&key=${process.env.YOUTUBE_API_KEY}`
+      `${YOUTUBE_API_URL}/playlistItems?part=snippet,contentDetails&playlistId=${playlistId}&maxResults=50&key=${process.env.YOUTUBE_API_KEY}`
     );
 
     const data = await response.json();
