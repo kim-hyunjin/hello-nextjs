@@ -11,11 +11,13 @@ const Banner = (props: { videoId: string; title: string; imgUrl: string }) => {
   const handleOnPlay = () => {
     router.push(`video/${videoId}`);
   };
+
+  const replacedTitle = title.replaceAll('&amp;', '&');
   return (
     <div className={styles.container}>
       <div className={styles.leftWrapper}>
         <div className={styles.left}>
-          <h3 className={styles.title}>{title}</h3>
+          <h3 className={styles.title}>{replacedTitle}</h3>
 
           <div className={styles.playBtnWrapper}>
             <button className={styles.btnWithIcon} onClick={handleOnPlay}>
