@@ -14,22 +14,9 @@
   padding-left: 1rem /* 16px */;
   padding-right: 1rem /* 16px */;
   display: flex;
-  padding: 1.25rem /* 20px */;
-}
-
-.logoLink {
-  display: flex;
-  font-weight: 500;
-  font-size: 1rem;
   align-items: center;
-  color: var(--white10);
-  margin-bottom: 1rem /* 16px */;
-}
 
-.logoWrapper {
-  color: var(--red);
-  width: 8rem /* 128px */;
-  font-size: 32px;
+  padding: 1.25rem /* 20px */;
 }
 
 .navItems {
@@ -37,7 +24,6 @@
   flex-direction: row;
   width: 50%;
   margin-left: 1.5rem /* 24px */;
-  font-size: 0.875rem /* 14px */;
   font-size: 1rem;
 
   line-height: 1.25rem /* 20px */;
@@ -118,10 +104,6 @@
     padding-right: 4rem /* 64px */;
     flex-direction: row;
     align-items: center;
-  }
-
-  .logoLink {
-    margin-bottom: 0px;
   }
 
   .navItems {
