@@ -40,8 +40,21 @@ const Login = () => {
       const didToken = await magic.auth.loginWithMagicLink({
         email,
       });
-      if (didToken) {
+      if (!didToken) {
+        throw Error('didToken not found');
+      }
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${didToken}`,
+        },
+      });
+
+      if (res.ok) {
         router.push('/');
+      } else {
+        throw Error();
       }
     } catch (error) {
       setIsLoading(false);

@@ -1,18 +1,22 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { magicAdmin } from '../../lib/magic';
 import jwt from 'jsonwebtoken';
-import { isNewUser } from '@/lib/db/hasura';
+import { createNewUser, isNewUser } from '@/lib/db/hasura';
+import { setTokenCookie } from '@/lib/cookies';
 
 export default async function login(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
     try {
       const auth = req.headers.authorization;
       const didToken = auth ? auth.substring(7) : '';
-      console.log({ didToken });
+      if (didToken === '') {
+        throw Error('need authorization value');
+      }
 
       const metadata = await magicAdmin.users.getMetadataByToken(didToken);
-      console.log({ metadata });
-
+      if (!metadata.email || !metadata.issuer) {
+        throw Error('user data not found');
+      }
       const token = jwt.sign(
         {
           ...metadata,
@@ -26,16 +30,22 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
         },
         String(process.env.JWT_SECRET)
       );
-      console.log({ token });
 
-      const newUser = await isNewUser(token, String(metadata.issuer));
+      const newUser = await isNewUser(token, metadata.issuer);
+      if (newUser) {
+        await createNewUser(token, {
+          email: metadata.email,
+          issuer: metadata.issuer,
+        });
+      }
+      setTokenCookie(token, res);
 
-      res.send({ done: true, newUser });
+      res.send({ done: true });
     } catch (error) {
       console.error('Something went wrong logging in', error);
       res.status(500).send({ done: false });
     }
   } else {
-    res.send({ done: false });
+    res.status(405).send({ done: false });
   }
 }

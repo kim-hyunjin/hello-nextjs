@@ -24,9 +24,7 @@ const operationsDoc = `
   query Users {
     users {
       email
-      id
       issuer
-      publicAddress
     }
   }
 
@@ -36,9 +34,17 @@ const operationsDoc = `
         _eq: $issuer
       }
     }) {
-      id
       email
       issuer
+    }
+  }
+
+  mutation InsertUser($email: String!, $issuer: String!) {
+    insert_users(objects: {email: $email, issuer: $issuer}) {
+      returning {
+        email
+        issuer
+      }
     }
   }
 `;
@@ -54,4 +60,8 @@ export async function isNewUser(token: string, issuer: string) {
   );
 
   return res?.data?.users?.length === 0;
+}
+
+export async function createNewUser(token: string, metadata: { email: string; issuer: string }) {
+  await fetchGraphQL(operationsDoc, 'InsertUser', metadata, token);
 }
