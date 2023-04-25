@@ -6,7 +6,6 @@ import NavBar from '../components/nav/Navbar';
 import styles from '../styles/Home.module.css';
 import { getPlaylists, getVideos } from '../lib/videos';
 import { YoutubeSnippet } from '../types/youtube';
-import { startFetchMyQuery } from '@/lib/db/hasura';
 
 type IndexPageServerData = {
   recentVideos: YoutubeSnippet[];
@@ -27,7 +26,6 @@ export const getStaticProps: GetStaticProps<IndexPageServerData> = async () => {
 };
 
 const Home: NextPage<IndexPageServerData> = ({ recentVideos, popularVideos, playlist }) => {
-  startFetchMyQuery();
   return (
     <div className={styles.container}>
       <Head>

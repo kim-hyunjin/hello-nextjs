@@ -1,9 +1,14 @@
-async function fetchGraphQL(operationsDoc: string, operationName: string, variables: any) {
+async function fetchGraphQL(
+  operationsDoc: string,
+  operationName: string,
+  variables: any,
+  token: string
+) {
   const result = await fetch(String(process.env.NEXT_PUBLIC_HASURA_URL), {
     method: 'POST',
     headers: {
       'x-hasura-admin-secret': String(process.env.NEXT_PUBLIC_HASURA_SECRET),
-      Authorization: `Bearer ${'temp'}`,
+      Authorization: `Bearer ${token}`,
     },
     body: JSON.stringify({
       query: operationsDoc,
@@ -16,7 +21,7 @@ async function fetchGraphQL(operationsDoc: string, operationName: string, variab
 }
 
 const operationsDoc = `
-  query MyQuery {
+  query Users {
     users {
       email
       id
@@ -24,20 +29,29 @@ const operationsDoc = `
       publicAddress
     }
   }
+
+  query UserByIssuer($issuer: String!) {
+    users(where: {
+      issuer: {
+        _eq: $issuer
+      }
+    }) {
+      id
+      email
+      issuer
+    }
+  }
 `;
 
-function fetchMyQuery() {
-  return fetchGraphQL(operationsDoc, 'MyQuery', {});
-}
+export async function isNewUser(token: string, issuer: string) {
+  const res = await fetchGraphQL(
+    operationsDoc,
+    'UserByIssuer',
+    {
+      issuer,
+    },
+    token
+  );
 
-export async function startFetchMyQuery() {
-  const { errors, data } = await fetchMyQuery();
-
-  if (errors) {
-    // handle those errors like a pro
-    console.error(errors);
-  }
-
-  // do something great with this precious data
-  console.log(data);
+  return res?.data?.users?.length === 0;
 }
