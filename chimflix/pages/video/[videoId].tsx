@@ -8,6 +8,9 @@ import { getVideoDetail, getVideos } from '@/lib/videos';
 import { VideoInfo } from '@/types/youtube';
 import { GetStaticProps } from 'next';
 import NavBar from '@/components/nav/Navbar';
+import useLikeHandler from '@/hooks/useLikeHandler';
+import Like from '@/components/icons/Like';
+import DisLike from '@/components/icons/DisLike';
 
 Modal.setAppElement('#__next');
 
@@ -36,6 +39,8 @@ const Video = ({ video }: { video: VideoInfo }) => {
   const router = useRouter();
   const { videoId } = router.query;
 
+  const { toggleLike, toggleDisLike, handleToggleLike, handleToggleDislike } = useLikeHandler();
+
   const handleClose = useCallback(() => {
     router.back();
   }, [router]);
@@ -61,6 +66,20 @@ const Video = ({ video }: { video: VideoInfo }) => {
           frameBorder='0'
           allowFullScreen
         ></iframe>
+        <div className={styles.likeDislikeBtnWrapper}>
+          <div className={styles.likeBtnWrapper}>
+            <button onClick={handleToggleLike}>
+              <div className={styles.btnWrapper}>
+                <Like selected={toggleLike} />
+              </div>
+            </button>
+          </div>
+          <button onClick={handleToggleDislike}>
+            <div className={styles.btnWrapper}>
+              <DisLike selected={toggleDisLike} />
+            </div>
+          </button>
+        </div>
         <div className={styles.modalBody}>
           <div className={styles.modalBodyContent}>
             <div className={styles.col1}>
